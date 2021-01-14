@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Prescription;
 use App\Models\PrescriptionsHistory;
 use Illuminate\Http\Request;
 use App\Http\NetworkResponse;
@@ -75,7 +76,6 @@ class CustomerController extends Controller
     {
         $customer->replicate()->fill([
             "prescriptions" => $customer->prescriptions, 
-            "count" => $customer->prescriptions->count(),
         ]) ;
         if($customer != null)
             return response("{\"msg\" : \"success\", \"error\" : false, \"data\" : $customer}",200)->header('Content-Type', 'application/json') ;
@@ -99,9 +99,9 @@ class CustomerController extends Controller
 
     
         if($customer->save()){
-            return response("{'msg' : 'success', 'error' : false, 'data': null}",200)->header("Content-Type", "application/json") ;
+            return response("{\"msg\" : \"success\", \"error\" : false, \"data\" : null}",200)->header("Content-Type", "application/json") ;
         }
-        return response("{'msg' : 'could not update customer data', 'error' : true, 'data' : null}",200)->header('Content-Type', 'application/json') ;
+        return response("{\"msg\" : \"success\", \"error\" : false, \"data\" :  null}",200)->header('Content-Type', 'application/json') ;
 
     }
 
@@ -117,9 +117,9 @@ class CustomerController extends Controller
             $pre->delete() ;
         }
         if($customer->delete()){
-            return response("{'msg' : 'success', 'error' : false, 'data' : null}",200)->header("Content-Type", "application/json") ;
+            return response("{\"msg\" : \"success\", \"error\" : false, \"data\" :  null}",200)->header("Content-Type", "application/json") ;
         }
-        return response("{'msg' : 'could not delete customer', 'error' : true, 'data': null}",200)->header('Content-Type', 'application/json') ;
+        return response("{\"msg\" : \"success\", \"error\" : false, \"data\" :  null}",200)->header('Content-Type', 'application/json') ;
     }
 
      /**
@@ -140,11 +140,11 @@ class CustomerController extends Controller
                 if($customer->save())
                     return response('{"msg" : "success", "error" : false, "data": null}',200)->header("Content-Type", "application/json") ;
                 else
-                    return response("{'msg' : 'could not update customer', 'error' : true, 'data': null}",200)->header('Content-Type', 'application/json') ;
+                    return response("{\"msg\" : \"success\", \"error\" : false, \"data\" : null}",200)->header('Content-Type', 'application/json') ;
             }
-            return response("{'msg' : 'invalid customer', 'error' : true, 'data': null}}",200)->header('Content-Type', 'application/json') ;
+            return response("{\"msg\" : \"success\", \"error\" : false, \"data\" : null}}",200)->header('Content-Type', 'application/json') ;
         } 
-         return response("{'msg' : 'invalid image ', 'error' : true, 'data': null}}",200)->header('Content-Type', 'application/json') ;
+         return response("{\"msg\" : \"success\", \"error\" : false, \"data\" : null}}",200)->header('Content-Type', 'application/json') ;
     }
     
 

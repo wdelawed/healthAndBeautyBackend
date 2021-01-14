@@ -12,7 +12,11 @@ class Prescription extends Model
         'name', 'notes', 'creation_date', 'price' 
     ];
 
+    public function customers(){
+        return $this->belongsToMany(Customer::class, 'customer_prescriptions')->withTimestamps() ;
+    }
+
     public function components(){
-        return $this->belongsToMany('App\Models\Component', 'prescription_component') ;
+        return $this->belongsToMany(Component::class, 'prescription_components') ;
     }
 }

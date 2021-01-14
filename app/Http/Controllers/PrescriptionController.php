@@ -14,7 +14,16 @@ class PrescriptionController extends Controller
      */
     public function index()
     {
-        return Prescription::all() ;
+        $prescriptions = Prescription::all() ;
+        foreach($prescriptions as $prescription){
+            $count = $prescription->customers->count() ;
+            $prescription->replicate()->fill([
+                'components' => $prescription->components,
+                'customers' => $count,
+            ]);
+        }
+        return response("{\"msg\" : \"success\", \"error\" : false, \"data\" : $prescriptions}",200)->header("Content-Type", "application/json") ;
+
     }
 
     /**
@@ -29,16 +38,24 @@ class PrescriptionController extends Controller
         $notes = $request->input('notes') ;
         $creation_date = $request->input('creation_date') ;
         $price = $request->input('price') ;
+
+        $file_name  = "" ;
+
+        if($request->presc_image){
+            $file_name = 'prescImage'.time() . '.' . $request->after_img->getClientOriginalExtension();
+            $request->presc_image->move(public_path('images/prescriptions'), $file_name);
+        } 
         
         if(Prescription::create([
             'name' => $name,
             'notes' => $notes,
             'creation_date' => $creation_date,
             'price' => $price,
+            'presc_image' => 'prescriptions/'.$file_name
         ])){
-            return response("{'msg' : 'success', 'error' : null}",200)->header("Content-Type", "application/json") ;
+            return response("{\"msg\" : \"success\", \"error\" : false, \"data\" : null}",200)->header("Content-Type", "application/json") ;
         }
-        return response("{'msg' : 'could not add Prescription', 'error' : true}",200)->header('Content-Type', 'application/json') ;
+        return response("{\"msg\" : \"could not add Prescription\", \"error\" : true, \"data\" : null}",200)->header('Content-Type', 'application/json') ;
 
     }
 
