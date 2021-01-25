@@ -23,3 +23,4 @@ Route::resource('customer', 'App\Http\Controllers\CustomerController');
 Route::resource('prescription', 'App\Http\Controllers\PrescriptionController');
 Route::resource('component', 'App\Http\Controllers\ComponentController');
 Route::post('customer/updateImage', 'App\Http\Controllers\CustomerController@updateAfterImage') ;
+Route::post('prescription/assignComponent', 'App\Http\Controllers\ComponentController@assignComponent') ;

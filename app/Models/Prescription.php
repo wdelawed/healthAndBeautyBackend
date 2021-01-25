@@ -9,7 +9,7 @@ class Prescription extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'notes', 'creation_date', 'price' 
+        'name', 'notes', 'creation_date', 'price' ,'presc_image'
     ];
 
     public function customers(){

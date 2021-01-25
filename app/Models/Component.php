@@ -9,6 +9,6 @@ class Component extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'quantity', 'expiry_date'
+        'name', 'quantity', 'expiry_date','unit', 'price'
     ];
 }
